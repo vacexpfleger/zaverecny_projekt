@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+    <title>MusicDB</title>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../media/database-icon.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                MusicDB
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link " href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Alba</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Umělci</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav d-flex">
+                <li class="nav-item">
+                  <a class="nav-link " href="#"><i class="bi bi-person me-1"></i>admin</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <!-- content -->
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-3 overflow-auto">
+                <h2 class="display-6">Meshuggah</h2>
+                <img class="img-fluid mb-3 mt-3" src="meshuggah.jpg" alt="cover">
+                <ul class="list-unstyled">
+                    <li>
+                        <strong>Origin:</strong> 
+                        Umeå, Sweden
+                    </li>
+                    <li>
+                        <strong>Genres:</strong> 
+                        djent, progressive
+                    </li>
+                    <li>
+                        <strong>Years active:</strong> 
+                        1987–present
+                    </li>
+                    <li>
+                        <strong>Labels:</strong> 
+                        Nuclear Blast, Fractured Transmitter, Atomic Fire
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-9 mt-2">
+                <nav>
+                    <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">About</button>
+                      <button class="nav-link" id="nav-members-tab" data-bs-toggle="tab" data-bs-target="#nav-members" type="button" role="tab" aria-controls="nav-members" aria-selected="false">Members</button>
+                      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Discography</button>
+                      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Awards</button>
+                      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-gallery" type="button" role="tab" aria-controls="nav-gallery" aria-selected="false">Gallery</button>
+                    </div>
+                  </nav>
+                  <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active container" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <p class="lead">Meshuggah (/məˈʃʊɡə/) is a Swedish extreme metal band formed in Umeå in 1987. The band's current lineup consists of lead vocalist Jens Kidman, guitarists Fredrik Thordendal and Mårten Hagström, drummer Tomas Haake and bassist Dick Lövgren. Since its formation, the band has released nine studio albums, six EPs and eight music videos. Their latest studio album, Immutable, was released on 1 April 2022 via Atomic Fire Records. <br>Meshuggah has become known for their innovative musical style and their complex, polymetered song structures and polyrhythms. They rose to fame as a significant act in extreme underground music, became an influence for modern metal bands, and gained a cult following. The band was labelled as one of the ten most important hard rock and heavy metal bands by Rolling Stone and as the most important band in metal by Alternative Press. In the late 2000s, the band was an inspiration for the djent subgenre.<br> In 2006 and 2009, Meshuggah was nominated for two Swedish Grammis Awards for their albums Catch Thirtythree and obZen, respectively. In 2018, the band was nominated for a Grammy Award for their song "Clockworks" under the "Best Metal Performance" category.[2] The band has performed in various international festivals, including Ozzfest and Download, and embarked on the obZen world tour from 2008 to 2010, and also the "Ophidian Trek".</p>
+                    </div>
+                    <div class="tab-pane fade container" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab">
+                      <h4>Current</h4>
+                      <ul class="list-group list-group-flush lead">
+                        <li class="list-group-item">Jens Kidman</li>
+                        <li class="list-group-item">Fredrik Thordendal</li>
+                        <li class="list-group-item">Mårten Hagström</li>
+                        <li class="list-group-item">Tomas Haake</li>
+                        <li class="list-group-item">Dick Lövgren</li>
+                      </ul>
+                    </div>
+                    <div class="tab-pane fade container mt-4" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="row">
+                            <div class="col-sm-3 mb-2">
+                                <div class="card">
+                                    <img src="cover.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Immutable</h5>
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="col-sm-3 mb-2">
+                                <div class="card">
+                                    <img src="cover.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Immutable</h5>
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="col-sm-3 mb-2">
+                                <div class="card">
+                                    <img src="cover.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Immutable</h5>
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="col-sm-3 mb-2">
+                                <div class="card">
+                                    <img src="cover.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Immutable</h5>
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="col-sm-3 mb-2">
+                                <div class="card">
+                                    <img src="cover.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Immutable <span>(2022)</span></h5>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade container mt-4" id="nav-gallery" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                              <div class="carousel-item active">
+                                <img src="2.jpg" class="d-block w-100" alt="...">
+                              </div>
+                              <div class="carousel-item">
+                                <img src="3.jpg" class="d-block w-100" alt="...">
+                              </div>
+                              <div class="carousel-item">
+                                <img src="1.jpg" class="d-block w-100" alt="...">
+                              </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                            </button>
+                          </div>
+                    </div>
+                    <div class="tab-pane fade container" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Year</th>
+                                <th scope="col">Album</th>
+                                <th scope="col">Award</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">2016</th>
+                                <td>The Violent Sleep of Reason</td>
+                                <td>Favorite Metal Albums</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
