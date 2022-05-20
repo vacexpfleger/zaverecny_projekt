@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container text-center mx-auto pb-3 p-5">
+        <h1 class="display-2">MusicDB</h1>
+        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde laudantium explicabo, ullam, voluptatibus sint mollitia, perferendis cumque quaerat adipisci deserunt ratione ipsa voluptate consequuntur sunt fugit delectus sapiente aspernatur enim! Rem voluptatem pariatur, sequi optio numquam officia eaque aperiam, aspernatur eius doloremque, deleniti sapiente nisi eveniet eum suscipit? Quod, repudiandae.</p>
+        <hr class="mt-5">
+    </div>
+
+    <div class="container">
+        <h2 class="display-5 text-center pb-2">Newest albums</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for album in object_list %}
+            <div class="col">
+                <div class="card">
+                    <img src="{{ album.cover.url }}" class="card-img-top" alt="{{ album.name }} album cover">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ album.name }}</h5>
+                        <p class="card-text"><small class="text-muted">by {{ album.artist }}</small></p>
+                        <p class="card-text">{{ album.about }}</p>
+                        <a href="#" class="btn btn-outline-dark">About</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

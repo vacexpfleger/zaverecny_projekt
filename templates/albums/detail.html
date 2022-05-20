@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-3 overflow-auto">
+                <h2 class="display-6">{{ object.name }}</h2>
+                <h5 class="d-inline">{{ object.artist }}</h5>
+                <div class="d-inline float-end align-middle">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <span class="ms-">5.0</span>
+                </div>
+                <img class="img-fluid mb-3 mt-3" src="{{ object.cover.url }}" alt="cover">
+                <ul class="list-unstyled">
+                    <li>
+                        <strong>Release date:</strong>
+                        {{ object.release_date }}
+                    </li>
+                    <li>
+                        <strong>Genre:</strong>
+                        {% for genres in object.genre.all %}
+                            {% if forloop.last %}
+                                {{ genres.name }}
+                            {% else %}
+                                {{ genres.name }},
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li>
+                        <strong>Label:</strong>
+                        {{ object.label }}
+                    </li>
+                    <li>
+                        <strong>Length:</strong>
+                        66:43
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-9 mt-2">
+                <nav>
+                    <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">About</button>
+                      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Tracklist</button>
+                      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Reviews</button>
+                    </div>
+                  </nav>
+                  <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <p class="lead">{{ object.about }}</p>
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <ul class="list-group list-group-flush list-group-numbered">
+                            {% for track in track_list.all %}
+                                <li class="list-group-item lead">{{ track.name }}</li>
+                            {% endfor %}
+                          </ul>
+                    </div>
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="row">
+                            <div class="col-sm-6 mb-2">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Kerrang<span class="badge bg-secondary ms-2">8.0</span></h5>
+                                      <p class="card-text">It really is impossible to pick fault with the record, every track playing its part, and further cementing their legend.</p>
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">AllMusic<span class="badge bg-secondary ms-2">8.0</span></h5>
+                                      <p class="card-text">Ultimately, Immutable delivers the very essence of Meshuggah. While comfortable in their collective skin, they continue exp
+                                          anding their reach by obliterating -- hell, nearly swallowing -- metal's genre boundaries in their long, relentless search for the undiscovered.</p>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
