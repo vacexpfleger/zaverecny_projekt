@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+import time, datetime
+from django.utils.dateparse import parse_duration
 
 
 class Origin(models.Model):
@@ -62,6 +64,7 @@ class Album(models.Model):
     cover = models.ImageField(upload_to="albums/")
     about = models.CharField(max_length=500)
     release_date = models.DateField()
+    length = models.DurationField()
 
     class Meta:
         ordering = ["-release_date"]

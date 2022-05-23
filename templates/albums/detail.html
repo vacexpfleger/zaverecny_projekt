@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+
 <div class="container mt-5">
         <div class="row">
             <div class="col-sm-3 overflow-auto">
@@ -35,7 +36,7 @@
                     </li>
                     <li>
                         <strong>Length:</strong>
-                        66:43
+                        {{ object.length }}
                     </li>
                 </ul>
             </div>
@@ -47,7 +48,7 @@
                       <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Reviews</button>
                     </div>
                   </nav>
-                  <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-content container" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <p class="lead">{{ object.about }}</p>
                     </div>
@@ -60,6 +61,16 @@
                     </div>
                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                         <div class="row">
+                            {% for review in review_list.all %}
+                                <div class="col-sm-6 mb-2">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                      <h5 class="card-title">{{review.reviewer}}<span class="badge bg-secondary ms-2">{{ review.rating }}</span></h5>
+                                      <p class="card-text">{{ review.text }}</p>
+                                    </div>
+                                  </div>
+                            </div>
+                            {% endfor %}
                             <div class="col-sm-6 mb-2">
                                 <div class="card h-100">
                                     <div class="card-body">

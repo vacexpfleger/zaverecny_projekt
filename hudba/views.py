@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from hudba.models import Album, Track
+from hudba.models import Album, Track, Review
 
 
 class Index(ListView):
@@ -19,6 +19,7 @@ class AlbumDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(AlbumDetail, self).get_context_data(**kwargs)
         context["track_list"] = Track.objects.filter(album_id=self.kwargs['pk']).order_by("number")
+        context["review_list"] = Review.objects.all()
         return context
     
 
