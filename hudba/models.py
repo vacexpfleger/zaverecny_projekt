@@ -1,7 +1,5 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-import time, datetime
-from django.utils.dateparse import parse_duration
 
 
 class Origin(models.Model):
@@ -79,7 +77,7 @@ class Track(models.Model):
     number = models.IntegerField()
 
     class Meta:
-        ordering = ["-number"]
+        ordering = ["number"]
 
     def __str__(self):
         return self.name
@@ -104,7 +102,7 @@ class Review(models.Model):
     reviewed = models.ForeignKey(Album, on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ["-rating"]
+        ordering = ["-rating", "reviewer"]
 
     def __str__(self):
         return self.reviewer
