@@ -61,16 +61,20 @@
                     </div>
                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                         <div class="row">
-                            {% for review in review_list.all %}
-                                <div class="col-sm-6 mb-2">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                      <h5 class="card-title">{{review.reviewer}}<span class="badge bg-secondary ms-2">{{ review.rating }}</span></h5>
-                                      <p class="card-text">{{ review.text }}</p>
-                                    </div>
-                                  </div>
-                            </div>
-                            {% endfor %}
+                            {% if not review_list%}
+                                <h1 class="text-center display-6 text-muted">Sorry, no reviews available.</h1>
+                            {% else %}
+                                {% for review in review_list.all %}
+                                    <div class="col-sm-6 mb-2">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                          <h5 class="card-title">{{review.reviewer}}<span class="badge bg-secondary ms-2">{{ review.rating }}</span></h5>
+                                          <p class="card-text">{{ review.text }}</p>
+                                        </div>
+                                      </div>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                   </div>
