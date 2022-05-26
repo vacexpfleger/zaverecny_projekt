@@ -1,11 +1,12 @@
 # Hudební databáze
-***
 
-##v1.2.4
+## v1.2.4
 
-funkční scraper na recenze, vlastní template tag na změnu třídy v Bootstrapu
+- funkční scraper na recenze
+- vlastní template tag na změnu třídy v Bootstrapu
 
-###Jak spustit server
+
+### Jak spustit server
 ```
 python manage.py runserver
 ```
