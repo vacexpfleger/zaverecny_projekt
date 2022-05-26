@@ -1,3 +1,4 @@
+from django.db.models import Avg
 from hudba.models import Review, Album
 import requests
 from bs4 import BeautifulSoup
@@ -18,7 +19,7 @@ def review_scrape():
         Album.objects.get(name=album, artist__name=artist)
     except:
         print("Album not found in database.")
-        return False
+        quit()
 
     page = requests.Session()
     page.headers["User-Agent"] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36'
@@ -27,7 +28,7 @@ def review_scrape():
 
     if scrape.status_code != 200:
         print("Reviews not available.")
-        return False
+        quit()
 
     review_save(soup)
 
@@ -52,18 +53,16 @@ def review_save(soup):
             if review.name == 'div' and review.get('class', '') == ['review_body']:
                 reviews.append(review.text.strip())
 
-    with open('../review.csv', 'w', newline='', encoding="utf-8") as file:
+    with open('temp.csv', 'w', newline='', encoding="utf-8") as file:
         writer = csv.writer(file)
         writer.writerow(["reviewer", "rating", "text"])
         for a, b, c in zip(reviewers, ratings, reviews):
             print(writer.writerow([a, b, c]))
 
 
-review_scrape()
-
-
 def run():
-    with open("../review.csv", encoding="utf-8") as file:
+    review_scrape()
+    with open("temp.csv", "r", encoding="utf-8") as file:
         reader = csv.reader(file)
         next(reader)  # Advance past the header
 
@@ -75,4 +74,7 @@ def run():
                 reviewed_id=Album.objects.get(name=album, artist__name=artist).pk
             )
 
+        rating_avg = Review.objects.filter(reviewed_id=Album.objects.get(name=album, artist__name=artist).pk).aggregate(Avg("rating"))
+        rating_avg = int(round(rating_avg.get("rating__avg"), 0))
+        Album.objects.filter(id=Album.objects.get(name=album, artist__name=artist).pk).update(rating=rating_avg)
 # https://towardsdatascience.com/use-python-scripts-to-insert-csv-data-into-django-databases-72eee7c6a433

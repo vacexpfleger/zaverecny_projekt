@@ -63,6 +63,10 @@ class Album(models.Model):
     about = models.CharField(max_length=500)
     release_date = models.DateField()
     length = models.DurationField()
+    rating = models.IntegerField(validators=[
+        MaxValueValidator(100),
+        MinValueValidator(0)
+    ], blank=True, null=True)
 
     class Meta:
         ordering = ["-release_date"]

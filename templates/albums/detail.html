@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 {% load rating_color %}
+{% block title %}{{ object.name }} - MusicDB{% endblock %}
 {% block content %}
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-sm-3 overflow-auto">
                 <h2 class="display-6">{{ object.name }}</h2>
                 <h5 class="d-inline">{{ object.artist }}</h5>
-                <div class="d-inline float-end align-middle">
-                    <span class="badge {{ review_avg.rating__avg|floatformat:"0" |set_color }} ms-2">{{ review_avg.rating__avg|floatformat:"0" }}</span>
-                </div>
+                {% if review_list %}
+                    <div class="d-inline float-end align-middle">
+                        <span class="badge {{ object.rating|set_color }} ms-2">{{ object.rating }}</span>
+                    </div>
+                {% endif %}
                 <img class="img-fluid mb-3 mt-3" src="{{ object.cover.url }}" alt="cover">
                 <ul class="list-unstyled">
                     <li>

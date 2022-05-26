@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load rating_color %}
+{% block title %}Albums - MusicDB{% endblock %}
+
+{% block content %}
+    <div class="container pt-5 pb-5">
+        <h2 class="display-5 text-center pb-4">Albums</h2>
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for album in object_list %}
+            <div class="col">
+
+                <div class="card h-100">
+                    <img src="{{ album.cover.url }}" class="card-img-top" alt="{{ album.name }} album cover">
+                    <div class="card-body">
+                        <a href="{% url "albums" %}{{ album.id }}" class="stretched-link"></a>
+                            <h5 class="card-title">{{ album.name }}
+                                <span class="badge {{ album.rating|set_color }}">{{ album.rating }}</span>
+                            </h5>
+                        <p class="card-text"><small class="text-muted">by {{ album.artist }}</small></p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

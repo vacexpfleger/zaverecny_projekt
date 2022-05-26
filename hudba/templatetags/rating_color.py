@@ -1,14 +1,14 @@
 from django import template
-from django.utils.safestring import SafeString
-
 register = template.Library()
 
 
 @register.filter
 def set_color(rating):
 
-    if type(rating) is SafeString:
-        rating = int(rating)
+    if not rating:
+        return ""
+
+    rating = int(rating)
 
     if 80 <= rating <= 100:
         badge_class = 'bg-success'

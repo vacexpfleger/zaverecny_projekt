@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href='{% static "style.css" %}'>
     <title>{% block title %}MusicDB{% endblock %}</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     <!-- Navbar -->
     {% block header %}
@@ -21,6 +21,10 @@
     <!-- content -->
 
     {% block content %}
+    {% endblock %}
+
+    {% block footer %}
+        {% include "page/footer.html" %}
     {% endblock %}
 
 </body>
