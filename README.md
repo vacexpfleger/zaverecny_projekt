@@ -12,9 +12,9 @@
  - Bootstrap 5
 
 ### Časový harmonogram
-květen 2022 - současná verze
-říjen 2022 - použití jiné databáze a přidání uživatelských funkcí
-listopad 2022 - použití Reactu a jiného CSS frameworku
+- [ ] květen 2022 - současná verze
+- [ ] říjen 2022 - použití jiné databáze a přidání uživatelských funkcí
+- [ ] listopad 2022 - použití Reactu a jiného CSS frameworku
 
 ### Zdroje informací
 https://docs.djangoproject.com/
@@ -39,5 +39,4 @@ python manage.py runscript review_scraper
 ```
 
 &nbsp;
-Autor projektu: Václav Pfleger
-Konzultant: Mgr. Marek Lučný
+Autor projektu: Václav Pfleger<br/>Konzultant: Mgr. Marek Lučný
