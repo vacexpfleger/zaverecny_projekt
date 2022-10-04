@@ -5,6 +5,7 @@
  - možnost přidat hodnocení a komentáře
  - [ ] použít jinou databázi
  - [ ] přidat uživatelské funkce (přidávání komentářů, hodnocení atd.)
+ - [ ] vytvořit scraper na data o albech
  - [ ] použít React
  - [ ] použít jiný CSS framework
 
@@ -15,13 +16,13 @@
 
 ### Časový harmonogram
 - [ ] květen 2022 - současná verze
-- [ ] říjen 2022 - použití jiné databáze a přidání uživatelských funkcí
+- [ ] říjen 2022 - použití jiné databáze, přidání uživatelských funkcí, scraper
 - [ ] listopad 2022 - použití Reactu a jiného CSS frameworku
 
 ### Zdroje informací
-https://docs.djangoproject.com/
-https://getbootstrap.com/
-https://stackoverflow.com/
+- https://docs.djangoproject.com/
+- https://getbootstrap.com/
+- https://stackoverflow.com/
 
 
 ## v1.2.5
