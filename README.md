@@ -11,7 +11,7 @@
 
 ### Použité technologie
  - Django
- - SQLite
+ - SQLite ([datový model](https://drive.google.com/file/d/1iVIWZ0uJ85QCOSOrcJgmU03e6yA9e2oN/view?usp=sharing))
  - Bootstrap 5
 
 ### Časový harmonogram
@@ -40,6 +40,12 @@ python manage.py runserver
 ```
 python manage.py runscript review_scraper
 ```
+
+### Jak zobrazit datový model
+1. Stáhnout z linku uvedeného výše
+2. Jít na stránku https://app.diagrams.net/
+3. Otevřít (file -> open from -> device)
+
 &nbsp;
 
 Autor projektu: Václav Pfleger<br/>Konzultant: Mgr. Marek Lučný
