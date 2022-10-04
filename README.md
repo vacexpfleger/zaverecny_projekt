@@ -1,6 +1,8 @@
 # Závěrečná práce: MusicDB
 
 ### Cíle projektu
+ - stránka s hudebními alby (ČSFD-like)
+ - možnost přidat hodnocení a komentáře
  - [ ] použít jinou databázi
  - [ ] přidat uživatelské funkce (přidávání komentářů, hodnocení atd.)
  - [ ] použít React
@@ -37,6 +39,6 @@ python manage.py runserver
 ```
 python manage.py runscript review_scraper
 ```
-
 &nbsp;
+
 Autor projektu: Václav Pfleger<br/>Konzultant: Mgr. Marek Lučný
