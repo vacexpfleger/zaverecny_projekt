@@ -3,21 +3,21 @@
 ### Cíle projektu
  - stránka s hudebními alby (ČSFD-like)
  - možnost přidat hodnocení a komentáře
- - [ ] použít jinou databázi
- - [ ] přidat uživatelské funkce (přidávání komentářů, hodnocení atd.)
+ - [x] použít jinou databázi
  - [ ] vytvořit scraper na data o albech
- - [ ] použít React
+ - [ ] použít Docker
+ - [ ] přidat uživatelské funkce (přidávání komentářů, hodnocení atd.)
  - [ ] použít jiný CSS framework
 
 ### Použité technologie
  - Django
- - SQLite ([datový model](https://drive.google.com/file/d/1iVIWZ0uJ85QCOSOrcJgmU03e6yA9e2oN/view?usp=sharing))
+ - PostgreSQL ([datový model](https://drive.google.com/file/d/1iVIWZ0uJ85QCOSOrcJgmU03e6yA9e2oN/view?usp=sharing))
  - Bootstrap 5
 
 ### Časový harmonogram
-- [ ] květen 2022 - současná verze
-- [ ] říjen 2022 - použití jiné databáze, přidání uživatelských funkcí, scraper
-- [ ] listopad 2022 - použití Reactu a jiného CSS frameworku
+- [x] květen 2022 - současná verze
+- [ ] říjen 2022 - použití jiné databáze, scraper, Docker
+- [ ] listopad 2022 - uživatelské funkce, jiný CSS framework
 
 ### Zdroje informací
 - https://docs.djangoproject.com/
