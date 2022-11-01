@@ -10,9 +10,7 @@ def scrape(url):
     soup = BeautifulSoup(page.text, 'html.parser')
 
     album = soup.find("h1", id="firstHeading").text
-    print(album)
     artist = soup.find("div", class_="contributor").text
-    print(artist)
     genres = soup.find("th", string="Genre").next_sibling
     length = soup.find("th", string="Length").next_sibling.text
     label = soup.find("th", string="Label").next_sibling.text
@@ -35,15 +33,18 @@ def scrape(url):
             tracks_list.extend(re.findall(r'\".*?\"', track.text))
     else:
         print(f"There are {len(tracklist)} tracklists in total:")
-        for track in tracklist:
-            print(track.find("caption").text)
-        choice = list(map(int, input("Enter multiple values: ").split()))
+        for index, track in enumerate(tracklist, start=1):
+            print(index, track.find("caption").text)
+        choice = list(map(int, input("Enter which playlists to add: ").split()))
         for x in choice:
-            tracks_list.extend(re.findall(r'\".*?\"', tracklist[x-1].text))
+            for row in tracklist[x-1].tbody.find_all('tr'):
+                columns = row.find("th", {"id": lambda L: L and L.startswith('track')})
+                if columns is not None:
+                    tracks_list.extend(re.findall(r'^(".*?")', columns.next_sibling.text))
 
     genres_list = [i for i in genres_list if i]
 
-    print(f"{album}, {artist}")
+    print(f"{artist}, {album}")
     print("Genres: ", genres_list)
     print("Release date: ", parser.parse(released))
     print("Length: ", length)
@@ -52,6 +53,19 @@ def scrape(url):
     print(tracks_list)
 
 
+def tracklist(url):
+    page = requests.get(url)
+    soup = BeautifulSoup(page.text, 'html.parser')
+
+    tables = soup.find_all("table", class_="tracklist")
+
+    for table in tables:
+        for row in table.tbody.find_all('tr'):
+            columns = row.find("th", {"id": lambda L: L and L.startswith('track')})
+            if columns is not None:
+                print(re.findall(r'^(".*?")', columns.next_sibling.text))
+
 def run():
     url = input("Album Wiki URL: ")
     scrape(url)
+    # tracklist(url)
