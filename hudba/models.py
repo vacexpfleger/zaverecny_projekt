@@ -42,12 +42,12 @@ class Genre(models.Model):
 
 class Artist(models.Model):
     name = models.CharField(max_length=50)
-    origin = models.ForeignKey(Origin, on_delete=models.CASCADE)
+    origin = models.ForeignKey(Origin, on_delete=models.CASCADE, blank=True, null=True)
     genre = models.ManyToManyField(Genre)
     members = models.ManyToManyField(Members)
-    about = models.CharField(max_length=1000)
+    about = models.CharField(max_length=1000, blank=True, null=True)
     labels = models.ManyToManyField(Label)
-    year_begin = models.DateField()
+    year_begin = models.DateField(blank=True, null=True)
     year_end = models.DateField(blank=True, null=True)
 
     def __str__(self):
@@ -60,7 +60,7 @@ class Album(models.Model):
     genre = models.ManyToManyField(Genre)
     label = models.ForeignKey(Label, on_delete=models.CASCADE)
     cover = models.ImageField(upload_to="albums/")
-    about = models.CharField(max_length=500)
+    about = models.TextField(max_length=1000)
     release_date = models.DateField()
     length = models.DurationField()
     rating = models.IntegerField(validators=[
