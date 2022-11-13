@@ -45,7 +45,7 @@ python manage.py runscript review_scraper
 > ```
 > docker exec -it zaverecny_projekt_web_1 bash
 > ```
-> 
+
 ### Jak spustit Docker
 ```
 docker-compose up -d --build
