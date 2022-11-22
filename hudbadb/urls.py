@@ -24,6 +24,7 @@ urlpatterns = [
     path("", views.Index.as_view(), name="index"),
     path("albums/", views.AlbumList.as_view(), name="albums"),
     path("albums/<int:pk>/", views.AlbumDetail.as_view()),
+    path("search/", views.SearchResults.as_view(), name="search_results")
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,7 +1,7 @@
-from django.db.models import Avg, Prefetch
+from django.db.models import Avg, Prefetch, Q
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from hudba.models import Album, Track, Review
+from hudba.models import Album, Track, Review, Artist
 
 
 class Index(ListView):
@@ -28,3 +28,15 @@ class AlbumDetail(DetailView):
         context["track_list"] = Track.objects.filter(album_id=self.kwargs['pk']).order_by("number")
         context["review_list"] = Review.objects.filter(reviewed_id=self.kwargs["pk"])
         return context
+
+
+class SearchResults(ListView):
+    model = Album
+    template_name = "search_results.html"
+
+    def get_queryset(self):
+        query = self.request.GET.get("search")
+        object_list = Album.objects.filter(
+            Q(name__icontains=query) | Q(about__icontains=query)
+        )
+        return object_list

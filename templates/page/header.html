@@ -21,6 +21,14 @@
                 </li>
             </ul>
             <ul class="navbar-nav d-flex">
+                <li class="nav-item me-2">
+                    <form action="{% url 'search_results' %}" method="get">
+                        <div class="input-group">
+                            <input name="search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                            <button type="button" class="btn btn-outline-primary">search</button>
+                        </div>
+                    </form>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link " href="#"><i class="bi bi-person me-1"></i>admin</a>
                 </li>
