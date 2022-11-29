@@ -2,7 +2,9 @@ from django.db.models import Avg, Prefetch, Q
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from hudba.models import Album, Track, Review, Artist
-
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views import generic
 
 class Index(ListView):
     model = Album
@@ -40,3 +42,9 @@ class SearchResults(ListView):
             Q(name__icontains=query) | Q(about__icontains=query)
         )
         return object_list
+
+
+class SignUpView(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = "registration/signup.html"

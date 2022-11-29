@@ -7,7 +7,6 @@
  - [x] vytvořit scraper na data o albech
  - [x] použít Docker
  - [ ] přidat uživatelské funkce (přidávání komentářů, hodnocení atd.)
- - [ ] použít jiný CSS framework
 
 ### Použité technologie
  - Django
@@ -18,7 +17,7 @@
 ### Časový harmonogram
 - [x] květen 2022 - současná verze
 - [x] říjen 2022 - použití jiné databáze, scraper, Docker
-- [ ] listopad 2022 - uživatelské funkce, jiný CSS framework
+- [ ] listopad 2022 - uživatelské funkce
 
 ### Zdroje informací
 - https://docs.djangoproject.com/
@@ -26,9 +25,9 @@
 - https://stackoverflow.com/
 
 
-## v1.3.2
+## v1.3.4
 
-- funkční dockerizace
+- search, signup form
 
 ### Jak spustit server
 ```
@@ -51,7 +50,6 @@ python manage.py runscript review_scraper
 docker-compose up -d --build
 docker-compose exec web python manage.py migrate --noinput
 docker-compose exec web python manage.py loaddata data.json
-docker-compose exec web python manage.py runserver
 ```
 
 ### Jak zobrazit datový model
