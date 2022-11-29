@@ -52,11 +52,27 @@
                         <p class="lead">{{ object.about }}</p>
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                        <ul class="list-group list-group-flush list-group-numbered">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for track in track_list.all %}
+                                <tr>
+                                    <th scope="row">{{ track.number }}</th>
+                                    <td>{{ track.name }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                        {% comment %}<ul class="list-group list-group-flush list-group-numbered">
                             {% for track in track_list.all %}
                                 <li class="list-group-item lead">{{ track.name }}</li>
                             {% endfor %}
-                          </ul>
+                        </ul>{% endcomment %}
                     </div>
                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                         <div class="row">

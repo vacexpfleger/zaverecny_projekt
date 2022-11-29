@@ -1,6 +1,7 @@
 from datetime import timedelta
 from bs4 import BeautifulSoup
 from hudba.models import Album, Track, Genre, Label, Artist
+from django.utils.dateparse import parse_duration
 from dateutil import parser
 from PIL import Image
 import re
@@ -82,7 +83,7 @@ def scrape(url, image_url):
     if click.confirm('\nData have been saved. Do you want to push them to db?', default=True):
         with open("temp.csv", "r", encoding="utf-8") as file:
             reader = csv.reader(file)
-            next(reader)  # Advance past the header
+            next(reader)
 
             for row in reader:
                 objx, created = Album.objects.get_or_create(
@@ -90,7 +91,7 @@ def scrape(url, image_url):
                     name=row[1],
                     about=row[2],
                     release_date=row[3],
-                    length=row[4],
+                    length=parse_duration(row[4]),
                     cover=row[5],
                     label_id=Label.objects.get_or_create(name=label[0])[0].pk,
                 )
