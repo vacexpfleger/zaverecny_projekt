@@ -1,3 +1,4 @@
+import click
 from django.db.models import Avg
 from hudba.models import Review, Album
 import requests
@@ -5,35 +6,29 @@ from bs4 import BeautifulSoup
 import csv
 
 
-def review_scrape():
-    global album
-    global artist
+def select():
+    for album in Album.objects.all():
+        print(f"{album.name} by {album.artist} ({album.pk})")
 
-    print("Album: ")
-    album = input()
+    pk = int(input("Select album (enter pk): "))
+    url = str(input("Enter Metacritic album link: "))
+    scrape(pk, url)
 
-    print("Artist: ")
-    artist = input()
 
-    try:
-        Album.objects.get(name=album, artist__name=artist)
-    except:
-        print("Album not found in database.")
-        quit()
-
+def scrape(choice, url):
     page = requests.Session()
     page.headers["User-Agent"] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36'
-    scrape = page.get(f"https://www.metacritic.com/music/{album.replace(' ', '-').lower()}/{artist.replace(' ', '-').lower()}")
+    scrape = page.get(url)
     soup = BeautifulSoup(scrape.content, "html.parser")
 
     if scrape.status_code != 200:
         print("Reviews not available.")
         quit()
 
-    review_save(soup)
+    save_to_csv(choice, soup)
 
 
-def review_save(soup):
+def save_to_csv(choice, soup):
     reviewers = []
     ratings = []
     reviews = []
@@ -53,28 +48,41 @@ def review_save(soup):
             if review.name == 'div' and review.get('class', '') == ['review_body']:
                 reviews.append(review.text.strip())
 
-    with open('temp.csv', 'w', newline='', encoding="utf-8") as file:
-        writer = csv.writer(file)
+    with open('temp.csv', 'w', newline='', encoding="utf-8") as output:
+        writer = csv.writer(output)
         writer.writerow(["reviewer", "rating", "text"])
         for a, b, c in zip(reviewers, ratings, reviews):
-            print(writer.writerow([a, b, c]))
+            writer.writerow([a, b, c])
+
+        print(f"There are {len(reviewers)} reviews in total: ")
+        for review in reviewers:
+            print(review)
+
+        album = Album.objects.get(id=choice).name
+        artist = Album.objects.get(id=choice).artist
+        line_count = 0
+
+        with open("temp.csv", encoding="utf-8") as inputcsv:
+            reader = csv.reader(inputcsv, delimiter=',')
+            print(reader)
+            for row in reader:
+                line_count += 1
+                print(row)
+                _, created = Review.objects.get_or_create(
+                    reviewer=row[0],
+                    rating=row[1],
+                    text=row[2],
+                    reviewed_id=Album.objects.get(name=album, artist__name=artist).pk
+                )
+
+        print(line_count)
+        rating_avg = Review.objects.filter(reviewed_id=Album.objects.get(name=album, artist__name=artist).pk).aggregate(
+            Avg("rating"))
+        rating_avg = int(round(rating_avg.get("rating__avg"), 0))
+        Album.objects.filter(id=Album.objects.get(name=album, artist__name=artist).pk).update(rating=rating_avg)
 
 
 def run():
-    review_scrape()
-    with open("temp.csv", "r", encoding="utf-8") as file:
-        reader = csv.reader(file)
-        next(reader)  # Advance past the header
+    select()
 
-        for row in reader:
-            _, created = Review.objects.get_or_create(
-                reviewer=row[0],
-                rating=row[1],
-                text=row[2],
-                reviewed_id=Album.objects.get(name=album, artist__name=artist).pk
-            )
-
-        rating_avg = Review.objects.filter(reviewed_id=Album.objects.get(name=album, artist__name=artist).pk).aggregate(Avg("rating"))
-        rating_avg = int(round(rating_avg.get("rating__avg"), 0))
-        Album.objects.filter(id=Album.objects.get(name=album, artist__name=artist).pk).update(rating=rating_avg)
 # https://towardsdatascience.com/use-python-scripts-to-insert-csv-data-into-django-databases-72eee7c6a433

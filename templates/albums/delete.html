@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block title %}Delete - MusicDB{% endblock %}
+
+{% block content %}
+    <div class="container pt-5 pb-5 mx-auto">
+        <p class="lead">Do you want to delete this album: {{ album.name }} by {{ album.artist }}?</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class="btn btn-outline-dark" type="submit">Delete</button>
+        </form>
+    </div>
+{% endblock %}

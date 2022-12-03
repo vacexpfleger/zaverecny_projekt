@@ -23,9 +23,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.Index.as_view(), name="index"),
     path("albums/", views.AlbumList.as_view(), name="albums"),
-    path("albums/<int:pk>/", views.AlbumDetail.as_view()),
+    path("albums/<int:pk>/", views.AlbumDetail.as_view(), name="album_detail"),
     path("search/", views.SearchResults.as_view(), name="search_results"),
     path("signup/", views.SignUpView.as_view(), name="signup"),
+    path("albums/<int:pk>/update/", views.album_update, name="album_update"),
+    path("albums/<int:pk>/delete/", views.album_delete, name="album_delete"),
     path("", include("django.contrib.auth.urls")),
 ]
 
