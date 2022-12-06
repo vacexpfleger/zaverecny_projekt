@@ -26,6 +26,7 @@ def scrape(url, image_url):
     artist = soup.find("div", class_="contributor").text
     genres = soup.find("th", string="Genre").next_sibling
     length = soup.find("th", string="Length").next_sibling.text
+    length = re.sub(r'\s?\[(.*?)]', '', length)
     label = soup.find("th", string="Label").next_sibling.text.strip().split("\n")
     released = soup.find("th", string="Released").next_sibling.text
     released = parser.parse(re.sub(r'\s?\((.*?)\)', '', released))

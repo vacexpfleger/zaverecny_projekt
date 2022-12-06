@@ -54,32 +54,36 @@ def save_to_csv(choice, soup):
         for a, b, c in zip(reviewers, ratings, reviews):
             writer.writerow([a, b, c])
 
-        print(f"There are {len(reviewers)} reviews in total: ")
-        for review in reviewers:
-            print(review)
+    print(f"There are {len(reviewers)} reviews in total: ")
+    for review in reviewers:
+        print(review)
 
-        album = Album.objects.get(id=choice).name
-        artist = Album.objects.get(id=choice).artist
-        line_count = 0
+    if click.confirm('\nReviews have been saved. Do you want to push them to db?', default=True):
+        save_to_db(choice)
+        print("Done.")
+    else:
+        print("Closing program...")
+        exit()
 
-        with open("temp.csv", encoding="utf-8") as inputcsv:
-            reader = csv.reader(inputcsv, delimiter=',')
-            print(reader)
-            for row in reader:
-                line_count += 1
-                print(row)
-                _, created = Review.objects.get_or_create(
-                    reviewer=row[0],
-                    rating=row[1],
-                    text=row[2],
-                    reviewed_id=Album.objects.get(name=album, artist__name=artist).pk
-                )
 
-        print(line_count)
-        rating_avg = Review.objects.filter(reviewed_id=Album.objects.get(name=album, artist__name=artist).pk).aggregate(
-            Avg("rating"))
-        rating_avg = int(round(rating_avg.get("rating__avg"), 0))
-        Album.objects.filter(id=Album.objects.get(name=album, artist__name=artist).pk).update(rating=rating_avg)
+def save_to_db(choice):
+    album = Album.objects.get(id=choice).name
+    artist = Album.objects.get(id=choice).artist
+
+    with open("temp.csv", encoding="utf-8") as inputcsv:
+        reader = csv.reader(inputcsv, delimiter=',')
+        next(reader)
+        for row in reader:
+            _, created = Review.objects.get_or_create(
+                reviewer=row[0],
+                rating=row[1],
+                text=row[2],
+                reviewed_id=Album.objects.get(name=album, artist__name=artist).pk
+            )
+
+    rating_avg = Review.objects.filter(reviewed_id=Album.objects.get(name=album, artist__name=artist).pk).aggregate(Avg("rating"))
+    rating_avg = int(round(rating_avg.get("rating__avg"), 0))
+    Album.objects.filter(id=Album.objects.get(name=album, artist__name=artist).pk).update(rating=rating_avg)
 
 
 def run():
