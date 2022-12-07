@@ -3,7 +3,7 @@ from django import forms
 from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from hudba.models import Album, Track, Review, Artist
+from hudba.models import Album, Track, Review, Artist, Members
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
@@ -22,6 +22,14 @@ class AlbumList(ListView):
     ordering = ["-rating"]
 
 
+class ArtistList(ListView):
+    model = Artist
+    context_object_name = "artist_list"
+    template_name = "artists/artists.html"
+
+    ordering = ["-name"]
+
+
 class AlbumDetail(DetailView):
     model = Album
 
@@ -35,10 +43,22 @@ class AlbumDetail(DetailView):
         return context
 
 
+class ArtistDetail(DetailView):
+    model = Artist
+
+    context_object_name = "artists_detail"
+    template_name = "artists/detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ArtistDetail, self).get_context_data(**kwargs)
+        context["album_list"] = Album.objects.filter(artist_id=self.kwargs["pk"]).order_by("release_date")
+        return context
+
+
 class AlbumForm(forms.ModelForm):
-   class Meta:
-       model = Album
-       fields = '__all__'
+    class Meta:
+        model = Album
+        fields = '__all__'
 
 
 class SearchResults(ListView):
@@ -64,7 +84,8 @@ def album_update(request, pk):
     form = AlbumForm(instance=album)
 
     if request.method == 'POST':
-        form = AlbumForm(request.POST, instance=album)
+        form = AlbumForm(request.POST, request.FILES, instance=album)
+
         if form.is_valid():
             form.save()
             return redirect('album_detail', album.id)
@@ -81,6 +102,6 @@ def album_delete(request, pk):
         album.delete()
         return redirect('albums')
 
-    return render(request,
-                    'albums/delete.html',
+    return render(request, 'albums/delete.html',
                     {'album': album})
+

@@ -25,9 +25,9 @@
 - https://stackoverflow.com/
 
 
-## v1.3.4
+## v1.3.8
 
-- search, signup form
+- artist view, bug fixing
 
 ### Jak spustit server
 ```

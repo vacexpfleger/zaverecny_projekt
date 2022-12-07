@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}{{ object.name }} - MusicDB{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-3 overflow-auto">
+                <h2 class="display-6">{{ object.name }}</h2>
+                <ul class="list-unstyled">
+                    <li>
+                        <strong>Origin:</strong>
+                        {{ object.origin }}
+                    </li>
+                    <li>
+                        <strong>Genres:</strong>
+                        {% for genre in object.genre.all %}
+                            {% if forloop.last %}
+                                {{ genre.name }}
+                            {% else %}
+                                {{ genre.name }},
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li>
+                        <strong>Years active:</strong>
+                        {% if not object.year_end %}
+                            {{ object.year_begin|date:"Y" }}-present
+                        {% else %}
+                            {{ object.year_begin|date:"Y" }}-{{ object.year_end|date:"Y" }}
+                        {% endif %}
+                    </li>
+                    <li>
+                        <strong>Labels:</strong>
+                        {% for label in object.labels.all %}
+                            {% if forloop.last %}
+                                {{ label.name }}
+                            {% else %}
+                                {{ label.name }},
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-9 mt-2">
+                <nav>
+                    <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">About</button>
+                      <button class="nav-link" id="nav-members-tab" data-bs-toggle="tab" data-bs-target="#nav-members" type="button" role="tab" aria-controls="nav-members" aria-selected="false">Members</button>
+                      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Discography</button>
+                      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-gallery" type="button" role="tab" aria-controls="nav-gallery" aria-selected="false">Gallery</button>
+                    </div>
+                  </nav>
+                  <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active container" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <p class="lead">{{ object.about }}</p>
+                    </div>
+                    <div class="tab-pane fade container" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab">
+                      <ul class="list-group list-group-flush lead">
+                          {% for member in object.members.all %}
+                              <li class="list-group-item">{{ member }}</li>
+                          {% endfor %}
+                      </ul>
+                    </div>
+                    <div class="tab-pane fade container mt-4" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="row">
+                            {% for album in album_list %}
+                                <div class="col-sm-3 mb-2">
+                                <div class="card">
+                                    <img src="{{ album.cover.url }}" class="card-img-top" alt="{{ album.name }}">
+                                    <div class="card-body">
+                                      <h5 class="card-title">{{ album.name }}<span> ({{ album.release_date|date:"Y" }})</span></h5>
+                                    </div>
+                                  </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade container mt-4" id="nav-gallery" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                              <div class="carousel-item active">
+                                <img src="2.jpg" class="d-block w-100" alt="...">
+                              </div>
+                              <div class="carousel-item">
+                                <img src="3.jpg" class="d-block w-100" alt="...">
+                              </div>
+                              <div class="carousel-item">
+                                <img src="1.jpg" class="d-block w-100" alt="...">
+                              </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                            </button>
+                          </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
