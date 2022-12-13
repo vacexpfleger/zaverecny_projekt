@@ -56,7 +56,15 @@
                     <div class="tab-pane fade container" id="nav-members" role="tabpanel" aria-labelledby="nav-members-tab">
                       <ul class="list-group list-group-flush lead">
                           {% for member in object.members.all %}
-                              <li class="list-group-item">{{ member }}</li>
+                              <li class="list-group-item">{{ member }} -
+                                  {% for role in member.role.all %}
+                                      {% if forloop.last %}
+                                          {{ role }}
+                                      {% else %}
+                                          {{ role }},
+                                      {% endif %}
+                                  {% endfor %}
+                              </li>
                           {% endfor %}
                       </ul>
                     </div>
