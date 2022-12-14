@@ -7,12 +7,7 @@
     {% if not object_list %}
         <h1 class="text-center display-6 text-muted">Sorry, no results available.</h1>
     {% else %}
-        {% if object_list.count == 1 %}
-            <h1 class="text-center display-6 pb-4">{{ object_list.count }} result: </h1>
-        {% else %}
-            <h1 class="text-center display-6 pb-4">{{ object_list.count }} results: </h1>
-        {% endif %}
-
+            <h1 class="text-center display-6 pb-4">{{ object_list.count }} result{{ object_list.count|pluralize }} for "{{ request.GET.urlencode|cut:"search=" }}": </h1>
             {% for album in object_list %}
                 <div class="card mb-4 mx-auto w-75">
                     <div class="row g-0">

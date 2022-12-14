@@ -3,7 +3,7 @@ from django import forms
 from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from hudba.models import Album, Track, Review, Artist, Members
+from hudba.models import Album, Track, Review, Artist, Members, Image
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
@@ -52,6 +52,7 @@ class ArtistDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ArtistDetail, self).get_context_data(**kwargs)
         context["album_list"] = Album.objects.filter(artist_id=self.kwargs["pk"]).order_by("release_date")
+        context["images"] = Image.objects.filter(artist_id=self.kwargs["pk"])
         return context
 
 

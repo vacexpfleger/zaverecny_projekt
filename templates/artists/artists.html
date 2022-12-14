@@ -4,16 +4,14 @@
 {% block content %}
     <div class="container pt-5 pb-5">
         <h2 class="display-5 text-center pb-4">Artists</h2>
-        <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="list-group list-group-flush">
             {% for artist in object_list %}
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <a href="{% url "artists" %}{{ artist.id }}" class="stretched-link"></a>
-                            <h5 class="card-title">{{ artist.name }}</h5>
-                    </div>
+            <a href="{% url "artists" %}{{ artist.id }}" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">{{ artist.name }}</h5>
                 </div>
-            </div>
+                <p class="mb-1">{{ artist.about }}</p>
+            </a>
             {% endfor %}
         </div>
     </div>
