@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.contenttypes.fields import GenericRelation
+from comment.models import Comment
 
 
 class Origin(models.Model):
@@ -67,12 +69,16 @@ class Album(models.Model):
         MaxValueValidator(100),
         MinValueValidator(0)
     ], blank=True, null=True)
+    comments = GenericRelation(Comment)
 
     class Meta:
         ordering = ["-release_date"]
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return f"/albums/{self.id}"
 
 
 class Track(models.Model):

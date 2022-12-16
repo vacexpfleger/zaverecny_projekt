@@ -31,6 +31,7 @@ urlpatterns = [
     path("albums/<int:pk>/update/", views.album_update, name="album_update"),
     path("albums/<int:pk>/delete/", views.album_delete, name="album_delete"),
     path("", include("django.contrib.auth.urls")),
+    path('comment/', include('comment.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

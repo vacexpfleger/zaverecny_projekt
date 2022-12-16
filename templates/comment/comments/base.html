@@ -1,0 +1,11 @@
+{% extends "comment/comments/base.html" %}
+
+{% block comment_section_cls %}my-2 mx-3{% endblock comment_section_cls %}
+
+{% block header_div_cls %}border-bottom mb-4{% endblock header_div_cls %}
+{% block header_title_cls %}bb{% endblock header_title_cls %}
+{% block follow_icon_wrapper_cls %}float-right{% endblock follow_icon_wrapper_cls %}
+
+{% block pagination %}  {# override default pagination classes #}
+{% include 'comment/comments/pagination.html' with active_btn='bg-success' text_style='text-success' li_cls='page-item rounded mx-1' %}
+{% endblock pagination %}

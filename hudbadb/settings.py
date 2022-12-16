@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "django_extensions",
+    "comment",
     "hudba.templatetags.rating_color",
     "crispy_forms",
     "crispy_bootstrap5",
@@ -139,4 +140,5 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = "/"

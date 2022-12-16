@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load rating_color %}
+{% load comment_tags %}
 {% block title %}{{ object.name }} - MusicDB{% endblock %}
 {% block content %}
 
@@ -46,6 +47,7 @@
                       <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">About</button>
                       <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Tracklist</button>
                       <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Reviews</button>
+                        <button class="nav-link" id="nav-comments-tab" data-bs-toggle="tab" data-bs-target="#nav-comments" type="button" role="tab" aria-controls="nav-comments" aria-selected="false">Comments</button>
                     </div>
                   </nav>
                   <div class="tab-content container" id="nav-tabContent">
@@ -93,6 +95,9 @@
                             {% endif %}
                         </div>
                     </div>
+                      <div class="tab-pane fade" id="nav-comments" role="tabpanel" aria-labelledby="nav-comments">
+                          {% render_comments object request %}
+                      </div>
                   </div>
             </div>
         </div>
