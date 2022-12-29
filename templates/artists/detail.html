@@ -5,6 +5,9 @@
         <div class="row">
             <div class="col-sm-3 overflow-auto">
                 <h2 class="display-6">{{ object.name }}</h2>
+                <a href="{{ object.image.url }}" data-toggle="lightbox">
+                <img class="img-fluid mb-3 mt-3" src="{{ object.image.url }}" alt="cover">
+                </a>
                 <ul class="list-unstyled">
                     <li>
                         <strong>Origin:</strong>
@@ -46,7 +49,6 @@
                       <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">About</button>
                       <button class="nav-link" id="nav-members-tab" data-bs-toggle="tab" data-bs-target="#nav-members" type="button" role="tab" aria-controls="nav-members" aria-selected="false">Members</button>
                       <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Discography</button>
-                      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-gallery" type="button" role="tab" aria-controls="nav-gallery" aria-selected="false">Gallery</button>
                     </div>
                   </nav>
                   <div class="tab-content" id="nav-tabContent">
@@ -70,6 +72,9 @@
                     </div>
                     <div class="tab-pane fade container mt-4" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="row">
+                            {% if not album_list %}
+                                <h1 class="text-center display-6 text-muted">Sorry, no discography available.</h1>
+                            {% else %}
                             {% for album in album_list %}
                                 <div class="col-sm-3 mb-2">
                                 <div class="card h-100">
@@ -82,31 +87,8 @@
                                   </div>
                             </div>
                             {% endfor %}
+                            {% endif %}
                         </div>
-                    </div>
-                    <div class="tab-pane fade container mt-4" id="nav-gallery" role="tabpanel" aria-labelledby="nav-profile-tab">
-                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>
-                            <div class="carousel-inner">
-                                {% for image in images %}
-                                    <div class="carousel-item active">
-                                        <img src="{{ image.image.url }}" class="d-block w-100" alt="...">
-                                    </div>
-                                {% endfor %}
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="visually-hidden">Next</span>
-                            </button>
-                          </div>
                     </div>
                   </div>
             </div>

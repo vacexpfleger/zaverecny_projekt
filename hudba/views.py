@@ -1,9 +1,9 @@
-from django.db.models import Avg, Prefetch, Q
+from django.db.models import Q
 from django import forms
 from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from hudba.models import Album, Track, Review, Artist, Members, Image
+from hudba.models import Album, Track, Review, Artist
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
@@ -18,6 +18,7 @@ class AlbumList(ListView):
     model = Album
     context_object_name = "album_list"
     template_name = "albums/albums.html"
+    paginate_by = 8
 
     ordering = ["-rating"]
 
@@ -26,6 +27,7 @@ class ArtistList(ListView):
     model = Artist
     context_object_name = "artist_list"
     template_name = "artists/artists.html"
+    paginate_by = 5
 
     ordering = ["-name"]
 
@@ -52,7 +54,6 @@ class ArtistDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ArtistDetail, self).get_context_data(**kwargs)
         context["album_list"] = Album.objects.filter(artist_id=self.kwargs["pk"]).order_by("release_date")
-        context["images"] = Image.objects.filter(artist_id=self.kwargs["pk"])
         return context
 
 

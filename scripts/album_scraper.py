@@ -12,6 +12,13 @@ import requests
 import wikipedia
 
 
+def url_input():
+    url = input("Album Wiki URL: ")
+    image_url = input("Album Cover URL: ")
+    scrape(url, image_url)
+
+
+# převod času z Wikipedie na sekundy, a poté na jednotný formát
 def timeconvert(time):
     sec = sum(x * int(t) for x, t in zip([60, 1], time.split(":")))
     length = timedelta(seconds=sec)
@@ -35,6 +42,7 @@ def scrape(url, image_url):
     tracks_list = []
     genres_list = []
 
+    # ošetřování výjimek týkajících se HTML kódu
     if not genres.find_all("li"):
         for genre in genres.find_all("a"):
             genres_list.append(re.sub(r'\s?\[(.*?)]', '', genre.text))
@@ -56,9 +64,9 @@ def scrape(url, image_url):
         choice = list(map(int, input("Enter which playlists to add: ").split()))
         for x in choice:
             for row in tracklist[x-1].tbody.find_all('tr'):
-                columns = row.find("th", {"id": lambda t: t and t.startswith('track')})
-                if columns is not None:
-                    tracks_list.extend(re.findall(r'^(".*?")', columns.next_sibling.text))
+                track_names = row.find("th", {"id": lambda t: t and t.startswith('track')})
+                if track_names is not None:
+                    tracks_list.extend(re.findall(r'^(".*?")', track_names.next_sibling.text))
 
     genres_list = [i for i in genres_list if i]
 
@@ -82,40 +90,44 @@ def scrape(url, image_url):
                          str(f"albums/{album}.png"), genres_list, tracks_list])
 
     if click.confirm('\nData have been saved. Do you want to push them to db?', default=True):
-        with open("temp.csv", "r", encoding="utf-8") as file:
-            reader = csv.reader(file)
-            next(reader)
-
-            for row in reader:
-                objx, created = Album.objects.get_or_create(
-                    artist_id=Artist.objects.get(name=row[0]).pk,
-                    name=row[1],
-                    about=row[2],
-                    release_date=row[3],
-                    length=parse_duration(row[4]),
-                    cover=row[5],
-                    label_id=Label.objects.get_or_create(name=label[0])[0].pk,
-                )
-
-                for genre in ast.literal_eval(row[6]):
-                    objy, created = Genre.objects.get_or_create(
-                        name=genre.replace('\'', '', 2)
-                    )
-                    objx.genre.add(objy.__class__.objects.get(name=genre.replace('\'', '', 2)).pk)
-
-                for number, track in enumerate(ast.literal_eval(row[7]), start=1):
-                    objz, created = Track.objects.get_or_create(
-                        name=re.sub('["\']', '', track),
-                        album_id=Album.objects.get(name=row[1]).pk,
-                        number=number
-                    )
-
-                print("Done.")
+        save_to_db(label)
+        print("Done.")
     else:
         print("Closing program...")
+        exit()
+
+
+# funkce načte .csv soubor a uloží data do databáze
+# pokud není interpret v databázi, neuloží se data
+def save_to_db(label):
+    with open("temp.csv", "r", encoding="utf-8") as file:
+        reader = csv.reader(file)
+        next(reader)
+
+        for row in reader:
+            objx, created = Album.objects.get_or_create(
+                artist_id=Artist.objects.get(name=row[0]).pk,
+                name=row[1],
+                about=row[2],
+                release_date=row[3],
+                length=parse_duration(row[4]),
+                cover=row[5],
+                label_id=Label.objects.get_or_create(name=label[0])[0].pk,
+            )
+
+            for genre in ast.literal_eval(row[6]):
+                objy, created = Genre.objects.get_or_create(
+                    name=genre.replace('\'', '', 2)
+                )
+                objx.genre.add(objy.__class__.objects.get(name=genre.replace('\'', '', 2)).pk)
+
+            for number, track in enumerate(ast.literal_eval(row[7]), start=1):
+                objz, created = Track.objects.get_or_create(
+                    name=re.sub('["\']', '', track),
+                    album_id=Album.objects.get(name=row[1]).pk,
+                    number=number
+                )
 
 
 def run():
-    url = input("Album Wiki URL: ")
-    image_url = input("Album Cover URL: ")
-    scrape(url, image_url)
+    url_input()

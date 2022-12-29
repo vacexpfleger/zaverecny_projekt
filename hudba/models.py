@@ -51,6 +51,10 @@ class Artist(models.Model):
     labels = models.ManyToManyField(Label)
     year_begin = models.DateField(blank=True, null=True)
     year_end = models.DateField(blank=True, null=True)
+    image = models.ImageField(upload_to="artists/", blank=True, null=True)
+
+    class Meta:
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
@@ -91,15 +95,6 @@ class Track(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Image(models.Model):
-    name = models.CharField(max_length=50)
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="media")
-
-    def __str__(self):
-        return str(self.image)
 
 
 class Review(models.Model):

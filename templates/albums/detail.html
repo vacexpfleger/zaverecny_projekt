@@ -15,7 +15,9 @@
                         <span class="badge {{ object.rating|set_color }} ms-2">{{ object.rating }}</span>
                     </div>
                 {% endif %}
+                <a href="{{ object.cover.url }}" data-toggle="lightbox">
                 <img class="img-fluid mb-3 mt-3" src="{{ object.cover.url }}" alt="cover">
+                </a>
                 <ul class="list-unstyled">
                     <li>
                         <strong>Release date:</strong>
@@ -40,6 +42,10 @@
                         {{ object.length }}
                     </li>
                 </ul>
+            {% if user.is_superuser %}
+                <a href="{% url "album_update" object.id %}" class="btn btn-xs btn-outline-dark" role="button"><span class="bi bi-pencil-square"></span></a>
+                <a href="{% url "album_delete" object.id %}" class="btn btn-xs btn-outline-danger" role="button"><span class="bi bi-x-square"></span></a>
+            {% endif %}
             </div>
             <div class="col-sm-9 mt-2">
                 <nav>
@@ -101,9 +107,5 @@
                   </div>
             </div>
         </div>
-        {% if user.is_superuser %}
-            <a href="{% url "album_update" object.id %}" class="btn btn-xs btn-outline-dark" role="button"><span class="bi bi-pencil-square"></span></a>
-            <a href="{% url "album_delete" object.id %}" class="btn btn-xs btn-outline-danger" role="button"><span class="bi bi-x-square"></span></a>
-        {% endif %}
     </div>
 {% endblock %}

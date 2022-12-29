@@ -6,7 +6,7 @@
  - [x] použít jinou databázi
  - [x] vytvořit scraper na data o albech
  - [x] použít Docker
- - [ ] přidat uživatelské funkce (přidávání komentářů, hodnocení atd.)
+ - [x] přidat uživatelské funkce (přidávání komentářů, hodnocení atd.)
 
 ### Použité technologie
  - Django
