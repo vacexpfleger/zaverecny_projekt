@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta
 from bs4 import BeautifulSoup
 from hudba.models import Album, Track, Genre, Label, Artist
@@ -45,10 +46,10 @@ def scrape(url, image_url):
     # ošetřování výjimek týkajících se HTML kódu
     if not genres.find_all("li"):
         for genre in genres.find_all("a"):
-            genres_list.append(re.sub(r'\s?\[(.*?)]', '', genre.text))
+            genres_list.append(re.sub(r'\s?\[(.*?)]', '', genre.text).lower())
     else:
         for genre in genres.find_all("li"):
-            genres_list.append(re.sub(r'\s?\[(.*?)]', '', genre.text))
+            genres_list.append(re.sub(r'\s?\[(.*?)]', '', genre.text).lower())
 
     if len(tracklist) == 1:
         for track in tracklist:

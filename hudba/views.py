@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django import forms
 from django.shortcuts import render, redirect
@@ -40,8 +41,10 @@ class AlbumDetail(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(AlbumDetail, self).get_context_data(**kwargs)
+        page = self.request.GET.get('page')
+        reviews = Paginator(Review.objects.filter(reviewed_id=self.kwargs["pk"]), 4)
         context["track_list"] = Track.objects.filter(album_id=self.kwargs['pk']).order_by("number")
-        context["review_list"] = Review.objects.filter(reviewed_id=self.kwargs["pk"])
+        context["review_list"] = reviews.get_page(page)
         return context
 
 
@@ -66,7 +69,6 @@ class AlbumForm(forms.ModelForm):
 class SearchResults(ListView):
     model = Album
     template_name = "search_results.html"
-
     def get_queryset(self):
         query = self.request.GET.get("search")
         object_list = Album.objects.filter(

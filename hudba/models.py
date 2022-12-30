@@ -44,14 +44,14 @@ class Genre(models.Model):
 
 class Artist(models.Model):
     name = models.CharField(max_length=50)
-    origin = models.ForeignKey(Origin, on_delete=models.CASCADE, blank=True, null=True)
+    origin = models.ForeignKey(Origin, on_delete=models.CASCADE)
     genre = models.ManyToManyField(Genre)
     members = models.ManyToManyField(Members)
-    about = models.CharField(max_length=1000, blank=True, null=True)
+    about = models.CharField(max_length=1000)
     labels = models.ManyToManyField(Label)
-    year_begin = models.DateField(blank=True, null=True)
+    year_begin = models.DateField()
     year_end = models.DateField(blank=True, null=True)
-    image = models.ImageField(upload_to="artists/", blank=True, null=True)
+    image = models.ImageField(upload_to="artists/")
 
     class Meta:
         ordering = ["name"]
@@ -76,7 +76,7 @@ class Album(models.Model):
     comments = GenericRelation(Comment)
 
     class Meta:
-        ordering = ["-release_date"]
+        ordering = ["-release_date", "name"]
 
     def __str__(self):
         return self.name

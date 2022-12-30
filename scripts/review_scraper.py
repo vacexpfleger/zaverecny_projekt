@@ -1,3 +1,5 @@
+import os
+
 import click
 from django.db.models import Avg
 from hudba.models import Review, Album

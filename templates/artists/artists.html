@@ -9,13 +9,8 @@
                     <a href="{% url "artists" %}{{ artist.id }}" class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between">
                             <div class="m-2">
-                                <h5 class="mb-1">{{ artist.name }}</h5><span>{{ artist.year_begin|date:"Y"}} -
-                                    {% if artist.year_end is None %}
-                                    present
-                                    {% else %}
-                                    {{ artist.year_end|date:"Y"}}
-                                    {% endif %}
-                                </span>
+                                <h5 class="mb-1">{{ artist.name }}</h5>
+                                <span>{{ artist.year_begin|date:"Y"}}-{% if artist.year_end is None %}present{% else %}{{ artist.year_end|date:"Y"}}{% endif %}</span>
                                 <p class="mb-1 mt-2">{{ artist.about }}</p>
                             </div>
                         </div>

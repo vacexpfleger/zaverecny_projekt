@@ -1,4 +1,16 @@
 #comments .bb {
     padding-bottom: 2px;
-    border-bottom: 3px solid #000000;
+    border-bottom: 3px solid #212529;
+}
+
+.js-comment-reaction {
+    text-decoration: none;
+}
+
+.headerlink {
+    display: none;
+}
+
+.comment-reaction-icon {
+    fill: white;
 }
