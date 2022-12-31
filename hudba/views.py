@@ -21,7 +21,7 @@ class AlbumList(ListView):
     template_name = "albums/albums.html"
     paginate_by = 8
 
-    ordering = ["-rating"]
+    ordering = ["-rating", "name"]
 
 
 class ArtistList(ListView):
@@ -30,7 +30,7 @@ class ArtistList(ListView):
     template_name = "artists/artists.html"
     paginate_by = 5
 
-    ordering = ["-name"]
+    ordering = ["name"]
 
 
 class AlbumDetail(DetailView):
@@ -69,6 +69,7 @@ class AlbumForm(forms.ModelForm):
 class SearchResults(ListView):
     model = Album
     template_name = "search_results.html"
+
     def get_queryset(self):
         query = self.request.GET.get("search")
         object_list = Album.objects.filter(
